@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  scope :monitoring do
+    mount Sidekiq::Web, at: '/sidekiq'
+  end
+  resources :high_scores
   get 'endangered/index'
   get 'endangered/data', to: 'endangered#data'
   post 'endangered/upload', to: 'endangered#upload'
